@@ -1,0 +1,225 @@
+import React from "react";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { userLoginAction } from "../../redux/actions/userAction";
+import { useDispatch } from "react-redux";
+
+const schema = z.object({
+  //   email: z
+  //       .string()
+  //       .email({ message: "Please provide a valid email address" }),
+  username: z
+    .string()
+    .min(3, { message: "Username must be at least 3 characters long." }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+});
+
+function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    clearErrors,
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const { username, password } = data;
+    try {
+      // const response = await userAxiosInstance.post("/token/", { email, password });
+      const response = await dispatch(userLoginAction(data)).unwrap();
+      // navigate('/otp_verification')
+      if (response.success) {
+        console.log("response", response?.userData?.role );
+        toast.success("Login successful!");
+      }
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.error || "Invalid username or password";
+      console.error(errorMessage);
+      toast.error(errorMessage);
+    }
+  };
+
+  return (
+    <div className="bg-black relative overflow-hidden w-screen min-h-screen flex">
+      <div className="hidden lg:block lg:w-[55%] p-5">
+        <video
+          src=""
+          alt="Platform preview showing calendar and team collaboration"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="object-cover rounded-lg w-full h-full "
+        />
+      </div>
+
+      <div className="w-full lg:w-[45%] p-8 lg:p-12 flex flex-col">
+        <div className="max-w-md w-full mx-auto">
+          {/* Logo */}
+          <div className="flex items-center gap-2 space-y-6">
+            <div className="w-8 h-8 bg-purple-600 rounded border-violet-400 items-center justify-center">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M7 7h10M7 12h10M7 17h10" />
+              </svg>
+            </div>
+            <span className="text-white text-xl font-semibold">
+              Data-Pusher
+            </span>
+          </div>
+
+          {/* Form Content */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-semibold text-white">
+                Login to your account
+              </h2>
+              {/* <p className="text-gray-500">Sign up and get 30 day free trial</p> */}
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+              <div className="space-y-2">
+                <label className="text-sm text-gray-600">username</label>
+                <input
+                  {...register("username")}
+                  type=""
+                  className="w-full px-4 py-2 rounded border-violet-400 border-2 bg-white"
+                />
+                {errors.username && (
+                  <span className="text-red-400">
+                    {errors.username.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm text-gray-600">Password</label>
+                <div className="relative">
+                  <input
+                    {...register("password")}
+                    type={showPassword ? "text" : "password"}
+                    className="w-full px-4 py-2 rounded border-violet-400 border-2 pr-10 bg-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 "
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <span className="text-red-400">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+
+              <button className="w-full py-2 px-4 rounded border-violet-400 bg-purple-600 hover:bg-purple-800 hover:text-white text-black">
+                Submit
+              </button>
+
+              <div className="flex items-center gap-4 py-2">
+                <div className="h-[1px] flex-1 bg-gray-200" />
+                <span className="text-sm text-gray-500">or</span>
+                <div className="h-[1px] flex-1 bg-gray-200" />
+              </div>
+
+              {/* <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="rounded-full border border-gray-200">
+                  <Image src="/placeholder.svg" alt="Apple logo" width={20} height={20} className="mr-2" />
+                  Apple
+                </Button>
+                <Button variant="outline" className="rounded-full border border-gray-200">
+                  <Image src="/placeholder.svg" alt="Google logo" width={20} height={20} className="mr-2" />
+                  Google
+                </Button>
+              </div> */}
+            </form>
+
+            <div className="flex justify-between text-sm">
+              <p className="text-gray-600">
+                Don't have any account?
+                <Link
+                  to="/register"
+                  className="text-violet-500 ml-1 hover:underline"
+                >
+                  Sign up
+                </Link>
+              </p>
+              {/* <a href="#" className="text-gray-600 hover:underline">
+                Terms & Conditions
+              </a> */}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded border-violet-400 opacity-30"
+            style={{
+              bottom: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `twinkle ${Math.random() * 3 + 2}s infinite`,
+            }}
+          />
+        ))}
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={`card-${i}`}
+            className="absolute w-12 h-12 rounded border-violet-400g-purple-900/20 border border-purple-500/20"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              transform: `rotate(${Math.random() * 360}deg)`,
+              animation: `float ${Math.random() * 4 + 6}s infinite ease-in-out`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Close Button */}
+      {/* <button
+        className="absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white/90 transition-colors"
+        aria-label="Close"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button> */}
+    </div>
+  );
+}
+
+export default Login;
