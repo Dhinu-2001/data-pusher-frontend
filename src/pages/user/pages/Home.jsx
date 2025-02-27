@@ -7,14 +7,13 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-20 pb-32 relative">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            Transform Your Research with{" "}
+          Effortless Data Delivery to{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              AI Power
+            Multiple Destinations
             </span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-            Upload your research papers and let our AI transform them into
-            engaging presentations, podcasts, and visual content.
+          Seamlessly send messages or data to all your linked destinations with a single push.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
             <Link to='accounts'>

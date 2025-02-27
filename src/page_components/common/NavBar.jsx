@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LogOut, CircleUser } from "lucide-react";
 import useRequestUser from "../../hooks/useRequest";
@@ -10,6 +10,7 @@ function NavBar() {
   const store = useSelector((state) => state);
   const dispatch = useDispatch()
   const { data, error, sendRequest } = useRequestUser()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     sendRequest({
@@ -19,6 +20,7 @@ function NavBar() {
         console.log('calling logourt state')
         dispatch(clearAuthData())
         toast.success('Logout!')
+        navigate('/login')
       },
       onError: (err) =>
         console.error("Error in Logout:", err),
