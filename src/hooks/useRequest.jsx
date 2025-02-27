@@ -7,7 +7,6 @@ const useRequestUser = () => {
   const [data, setData] = useState(null);
   const store = useSelector((state)=>state)
   const dispatch = useDispatch()
-//   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const sendRequest = useCallback(async (config) => {
@@ -16,7 +15,6 @@ const useRequestUser = () => {
       return;
     }
     dispatch(setLoading(true))
-    // setLoading(true);
     setError(null);
 
     try {

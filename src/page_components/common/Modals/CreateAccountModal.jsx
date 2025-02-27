@@ -4,8 +4,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRequestUser from "../../../hooks/useRequest";
 import { toast } from "sonner";
-// marketingteam@email.com
-// .url({ message: "Please provide a valid website URL" })
 
 const schema = z.object({
   email: z.string().email({ message: "Please provide a valid email address" }),

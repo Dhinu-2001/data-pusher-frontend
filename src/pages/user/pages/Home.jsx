@@ -1,8 +1,5 @@
 import { Upload } from "lucide-react";
-import NavBar from "../../../page_components/common/NavBar";
 import { Link } from "react-router-dom";
-// import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
 
 export default function Home() {
   return (

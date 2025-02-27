@@ -10,9 +10,6 @@ import { userLoginAction } from "../../redux/actions/userAction";
 import { useDispatch } from "react-redux";
 
 const schema = z.object({
-  //   email: z
-  //       .string()
-  //       .email({ message: "Please provide a valid email address" }),
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters long." }),
@@ -42,9 +39,7 @@ function Login() {
     console.log(data);
     const { username, password } = data;
     try {
-      // const response = await userAxiosInstance.post("/token/", { email, password });
       const response = await dispatch(userLoginAction(data)).unwrap();
-      // navigate('/otp_verification')
       if (response.success) {
         console.log("response", response?.userData?.role );
         toast.success("Login successful!");
@@ -101,7 +96,6 @@ function Login() {
               <h2 className="text-2xl font-semibold text-white">
                 Login to your account
               </h2>
-              {/* <p className="text-gray-500">Sign up and get 30 day free trial</p> */}
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
@@ -151,17 +145,6 @@ function Login() {
                 <span className="text-sm text-gray-500">or</span>
                 <div className="h-[1px] flex-1 bg-gray-200" />
               </div>
-
-              {/* <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="rounded-full border border-gray-200">
-                  <Image src="/placeholder.svg" alt="Apple logo" width={20} height={20} className="mr-2" />
-                  Apple
-                </Button>
-                <Button variant="outline" className="rounded-full border border-gray-200">
-                  <Image src="/placeholder.svg" alt="Google logo" width={20} height={20} className="mr-2" />
-                  Google
-                </Button>
-              </div> */}
             </form>
 
             <div className="flex justify-between text-sm">
@@ -174,9 +157,6 @@ function Login() {
                   Sign up
                 </Link>
               </p>
-              {/* <a href="#" className="text-gray-600 hover:underline">
-                Terms & Conditions
-              </a> */}
             </div>
           </div>
         </div>
@@ -208,16 +188,6 @@ function Login() {
           />
         ))}
       </div>
-
-      {/* Close Button */}
-      {/* <button
-        className="absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white/90 transition-colors"
-        aria-label="Close"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M18 6L6 18M6 6l12 12" />
-        </svg>
-      </button> */}
     </div>
   );
 }

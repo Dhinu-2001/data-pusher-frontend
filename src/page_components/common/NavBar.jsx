@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LogOut, CircleUser } from "lucide-react";
 import useRequestUser from "../../hooks/useRequest";
@@ -9,7 +9,6 @@ import { clearAuthData } from "../../redux/auth/AuthSlice";
 function NavBar() {
   const store = useSelector((state) => state);
   const dispatch = useDispatch()
-  const navigate = useNavigate();
   const { data, error, sendRequest } = useRequestUser()
 
   const handleLogout = () => {

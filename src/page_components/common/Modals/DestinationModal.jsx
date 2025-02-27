@@ -4,22 +4,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRequestUser from "../../../hooks/useRequest";
 import { toast } from "sonner";
-// marketingteam@email.com
-// .url({ message: "Please provide a valid website URL" })
 
 const schema = z.object({
   url: z.string().url({ message: "Please provide a valid URL" }),
   http_method: z.enum(["GET", "POST", "PUT"], {
     message: "Invalid HTTP method. Allowed values: GET, POST, PUT",
   }),
-  // headers: z
-  //   .array(
-  //     z.object({
-  //       key: z.string().min(1, "Header key is required"),
-  //       value: z.string().min(1, "Header value is required"),
-  //     })
-  //   )
-  //   .optional(),
 });
 
 function DestinationModal({
@@ -40,7 +30,6 @@ function DestinationModal({
     defaultValues: {
       url: initialValues?.url || "",
       http_method: initialValues?.http_method || "",
-      // headers: initialValues?.headers || [{ key: "", value: "" }],
     },
   });
 
@@ -60,25 +49,6 @@ function DestinationModal({
     console.log("FORM", data);
     data.account = selectedAccounts;
 
-    // const headersObject = data.headers.reduce((acc, { key, value }) => {
-    //   acc[key] = value;
-    //   return acc;
-    // }, {});
-
-    // console.log(headersObject);
-    // data.headers = headersObject;
-    // console.log("after format FORM", data);
-
-    // const fixedData = {
-    //   ...data,
-    //   headers: data.headers.reduce((acc, { key, value }) => {
-    //     acc[key] = value;
-    //     return acc;
-    //   }, {})
-    // };
-
-    // console.log("After Fix:", fixedData); // Check structure before sending
-
     sendRequest({
       url: url,
       method: http_method,
@@ -95,22 +65,6 @@ function DestinationModal({
       },
     });
   };
-  // console.log("BEFORE initialValues", initialValues);
-
-  // useEffect(() => {
-  //   if(initialValues) {
-  //     console.log("BEFORE initialValues", initialValues);
-
-  //     const headerArray = Object.entries(initialValues?.headers).map(key=>(
-  //       {
-  //         key:key, 
-  //         value: initialValues[key]}
-  //     ));
-  //     initialValues.headers = headerArray
-      
-  //     console.log("AFTER initialValues", initialValues);
-  //   }
-  // }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -159,43 +113,6 @@ function DestinationModal({
                     </span>
                   )}
                 </div>
-
-                {/* <div className="space-y-2">
-                  <label className="text-sm text-gray-600">headers</label>
-                  {headers.map((header, index) => (
-                    <div key={index} className="grid grid-cols-3 space-x-2">
-                      <input
-                        {...register(`headers.${index}.key`)}
-                        placeholder="Header Key"
-                        className="px-4 py-2 rounded border-violet-400 border-2 bg-white"
-                      />
-                      <input
-                        {...register(`headers.${index}.value`)}
-                        placeholder="Header Value"
-                        className="w-full px-4 py-2 rounded border-violet-400 border-2 bg-white"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeHeader(index)}
-                        className="max-w-14 bg-red-500 text-white"
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={addHeader}
-                    className="w-1/2 py-2 px-4 rounded border-violet-400 bg-purple-600 hover:bg-purple-800 hover:text-white text-black"
-                  >
-                    Add Header
-                  </button>
-                  {errors.website && (
-                    <span className="text-red-400">
-                      {errors.website.message}
-                    </span>
-                  )}
-                </div> */}
                 <div className="mt-10">
                   <button className="w-full py-2 px-4 rounded border-violet-400 bg-purple-600 hover:bg-purple-800 hover:text-white text-black">
                     Submit

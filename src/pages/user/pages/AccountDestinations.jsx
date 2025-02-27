@@ -1,42 +1,11 @@
 import { useEffect, useState } from "react";
-import { ChevronDown, ChevronUp, LinkIcon, Pencil, Trash } from "lucide-react";
+import { LinkIcon, Pencil, Trash } from "lucide-react";
 import CreateAccountModal from "../../../page_components/common/Modals/CreateAccountModal";
 import useRequestUser from "../../../hooks/useRequest";
 import DestinationModal from "../../../page_components/common/Modals/DestinationModal";
 import DestinationDisplay from "../../../page_components/common/Modals/DestinationDisplay";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-
-// const accounts = [
-//   {
-//     id: "1",
-//     name: "Main Account",
-//     email: "main@example.com",
-//     destinations: [
-//       { id: "d1", url: "https://example.com/link1", name: "Homepage" },
-//       { id: "d2", url: "https://example.com/link2", name: "Dashboard" },
-//     ],
-//   },
-//   {
-//     id: "2",
-//     name: "Marketing Team",
-//     email: "marketing@example.com",
-//     destinations: [
-//       { id: "d3", url: "https://example.com/link3", name: "Analytics" },
-//       { id: "d4", url: "https://example.com/link4", name: "Campaigns" },
-//       { id: "d5", url: "https://example.com/link5", name: "Social Media" },
-//     ],
-//   },
-//   {
-//     id: "3",
-//     name: "Development Team",
-//     email: "dev@example.com",
-//     destinations: [
-//       { id: "d6", url: "https://example.com/link6", name: "GitHub" },
-//       { id: "d7", url: "https://example.com/link7", name: "Jira" },
-//     ],
-//   },
-// ];
 
 export default function AccountDestinations() {
   const [expandedAccounts, setExpandedAccounts] = useState(new Set());
@@ -174,22 +143,6 @@ export default function AccountDestinations() {
                     >
                       <Trash className="w-4 h-4 " />
                     </button>
-                    {/* <button
-                      onClick={() => toggleAccount(account.id)}
-                      className="w-full sm:w-auto rounded-xl border-1 border-white flex items-center gap-1 p-3"
-                    >
-                      {expandedAccounts.has(account.id) ? (
-                        <>
-                          <ChevronUp className="w-4 h-4 mr-2" />
-                          Hide Destinations
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-4 h-4 mr-2" />
-                          Show Destinations
-                        </>
-                      )}
-                    </button> */}
                   </div>
                 </div>
 
@@ -257,8 +210,6 @@ export default function AccountDestinations() {
           title="List all Destination"
           operation="creation"
           selectedAccounts={selectedAccounts}
-          // openDestinationCreation={openDestinationCreation}
-          // setOpenDestinationCreation={setOpenDestinationCreation}
         />
       )}
     </div>

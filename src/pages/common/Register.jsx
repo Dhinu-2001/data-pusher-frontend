@@ -193,16 +193,6 @@ function Register() {
                 <div className="h-[1px] flex-1 bg-gray-200" />
               </div>
 
-              {/* <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="rounded border-violet-400 border-2">
-                  <Image src="/placeholder.svg" alt="Apple logo" width={20} height={20} className="mr-2" />
-                  Apple
-                </Button>
-                <Button variant="outline" className="rounded border-violet-400 border-2">
-                  <Image src="/placeholder.svg" alt="Google logo" width={20} height={20} className="mr-2" />
-                  Google
-                </Button>
-              </div> */}
             </form>
 
             <div className="flex justify-between text-sm">
@@ -246,16 +236,6 @@ function Register() {
           />
         ))}
       </div>
-
-      {/* Close Button */}
-      {/* <button
-        className="absolute top-4 right-4 p-2 rounded border-violet-400 bg-white/80 backdrop-blur-sm hover:bg-white/90 transition-colors"
-        aria-label="Close"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M18 6L6 18M6 6l12 12" />
-        </svg>
-      </button> */}
     </div>
   );
 }

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useRequestUser from "../../../hooks/useRequest";
 import { toast } from "sonner";
 import { LinkIcon, Pencil, Trash } from "lucide-react";
